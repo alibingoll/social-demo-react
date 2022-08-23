@@ -1,5 +1,11 @@
 .container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: "center";
+    /* background-color: '#cfe8fc'; */
+    background-color: 'red';
+    height: '100vh';
+    padding-left: 10px;
+    margin-left: 10px;
 }

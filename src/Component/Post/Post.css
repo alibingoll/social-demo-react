@@ -1,5 +1,14 @@
 .postContainer{
     border-width: 2px;
-    border-color: black;
-    border-style: solid;
+    border-color: white;
+    border-style: groove;
+    margin-left: 15px;
+    margin-top: 15px;
+    float:left
 }
+
+.card{
+justify-content: center;
+align-items: center;
+}
+
