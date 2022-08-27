@@ -14,6 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Link } from "react-router-dom";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -29,20 +30,28 @@ const ExpandMore = styled((props) => {
 export default function Post(props) {
   const { title, text,userName,userId } = props;
   const [expanded, setExpanded] = React.useState(false);
-
+  const [liked, setLiked] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+  const handleLikedClick = () => {
+    setLiked(!liked);
   };
 
   return (
     <div className="postContainer">
+
       <Card sx={{ maxWidth: 500 }} className="card">
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            <Link to={{pathname :"/users/"+userId}} className="link">
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe"
+            style={{background:'linear-gradient(45deg,#2196F3 30%,#21CBF3 90%)',color:"white"}}
+            > 
               {/* {userName[0]} */}
               {userName.charAt(0).toUpperCase()}
             </Avatar>
+            </Link>
           }
           action={
             <IconButton aria-label="settings">
@@ -59,8 +68,9 @@ export default function Post(props) {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="add to favorites"
+          onClick={handleLikedClick}>
+            <FavoriteIcon style={liked? { color : "red"} : null}/>
           </IconButton>
           {/* <IconButton aria-label="share">
             <ShareIcon />
@@ -78,6 +88,8 @@ export default function Post(props) {
           <CardContent></CardContent>
         </Collapse>
       </Card>
+ 
+      
     </div>
   );
 }

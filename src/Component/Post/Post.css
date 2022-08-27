@@ -1,14 +1,25 @@
-.postContainer{
-    border-width: 2px;
+.postContainer {
+    /* border-width: 2px;
     border-color: white;
-    border-style: groove;
-    margin-left: 15px;
-    margin-top: 15px;
-    float:left
+    border-style: groove; */
+    /* margin-left: 15px; */
+    /* margin-top: 15px; */
+    margin: auto;
+    width: 80%;
+    border: 0px groove green;
+    padding: 10px;
+    /* background-color: brown; */
+    /* float:left */
 }
 
-.card{
-justify-content: center;
-align-items: center;
+.card {
+    width: 100%;
+    /* padding: 5px; */
+    /* position: relative; */
+    margin: auto;
+    /* float: left; */
 }
-
+.avatar {
+    background:'linear-gradient(45deg,#2196F3 30%,#21CBF3 90%)';
+    color:red;
+}
