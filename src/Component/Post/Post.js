@@ -28,7 +28,7 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function Post(props) {
-  const { title, text,userName,userId } = props;
+  const { title, text,userName,userId,postId } = props;
   const [expanded, setExpanded] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
   const handleExpandClick = () => {
@@ -37,7 +37,22 @@ export default function Post(props) {
   const handleLikedClick = () => {
     setLiked(!liked);
   };
-
+  const refreshComments = () => {
+    fetch(`/comments?postId=${postId}`)
+        .then((res) => res.json())
+        .then(
+            (result) => {
+              console.log(result);
+              // setIsLoaded(true);
+              // setPostList(result);
+            },
+            (error) => {
+              console.log(error);
+              // setIsLoaded(true);
+              // setError(error);
+            }
+        );
+  }
   return (
     <div className="postContainer">
 

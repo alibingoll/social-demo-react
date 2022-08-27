@@ -46,7 +46,7 @@ function Home() {
           <Post key={post.id} title={post.title} text={post.text} 
           userName={post.userName}
           userId={post.userId}
-          
+          postId={post.id}
           ></Post>
         ))}
     </React.Fragment>
