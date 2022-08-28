@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useRef} from "react";
 import Post from "../Post/Post.js";
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -9,6 +9,7 @@ function Home() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [postList, setPostList] = useState([]);
+  const isInitialMount = useRef(true)
 
   const refreshPosts = () => {
     fetch("/posts")
@@ -28,7 +29,11 @@ function Home() {
   }
 
   useEffect(() => {
-    refreshPosts();
+    if(isInitialMount.current)
+    {
+      refreshPosts();
+      isInitialMount.current=false
+    }
   }, [postList]);
   if (error) {
     return <div>Error</div>;

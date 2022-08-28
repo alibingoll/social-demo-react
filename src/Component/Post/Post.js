@@ -13,8 +13,9 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Comment from "../Comment/Comment";
 import { Link } from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,28 +32,42 @@ export default function Post(props) {
   const { title, text,userName,userId,postId } = props;
   const [expanded, setExpanded] = React.useState(false);
   const [liked, setLiked] = React.useState(false);
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
-  const handleLikedClick = () => {
-    setLiked(!liked);
-  };
+  const isInitialMount = useRef(true)
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [commentsList, setCommentsList] = useState([]);
   const refreshComments = () => {
     fetch(`/comments?postId=${postId}`)
         .then((res) => res.json())
         .then(
             (result) => {
+              console.log(postId);
               console.log(result);
-              // setIsLoaded(true);
-              // setPostList(result);
+              setIsLoaded(true);
+              setCommentsList(result);
             },
             (error) => {
               console.log(error);
-              // setIsLoaded(true);
-              // setError(error);
+              setIsLoaded(true);
+              setError(error);
             }
         );
   }
+
+  // useEffect(() => {
+  //   if(isInitialMount.current)
+  //   {
+  //     refreshComments();
+  //     isInitialMount.current=false
+  //   }
+  // }, [commentsList]);
+  const handleExpandClick = () => {
+      if(!expanded) refreshComments();
+      setExpanded(!expanded);
+  };
+  const handleLikedClick = () => {
+    setLiked(!liked);
+  };
   return (
     <div className="postContainer">
 
@@ -100,7 +115,15 @@ export default function Post(props) {
           </ExpandMore>
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent></CardContent>
+          <CardContent>
+              {commentsList.map((comment) => (
+                  <Comment key={comment.id}
+                           text={comment.text}
+                           userName={comment.userName}
+                           userId={comment.user_id}
+                  ></Comment>
+              ))}
+          </CardContent>
         </Collapse>
       </Card>
  
