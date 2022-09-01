@@ -52,6 +52,7 @@ function Home() {
           userName={post.userName}
           userId={post.userId}
           postId={post.id}
+          likes={post.postLikes}
           ></Post>
         ))}
     </React.Fragment>
